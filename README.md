@@ -1,1 +1,1 @@
-# Generalilzed gamma distribution
+# Generalized gamma distribution
