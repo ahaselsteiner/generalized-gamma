@@ -1,1 +1,1 @@
-# translated-weibull
+# Generalilzed gamma distribution
