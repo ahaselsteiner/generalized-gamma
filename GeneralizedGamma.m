@@ -1,6 +1,6 @@
 classdef GeneralizedGamma < handle
 % We use the parameterization and variables names that are also used in 
-% 10.1061/9780872629332.038
+% doi.org/10.1061/9780872629332.038
    properties
       Lambda
       C
