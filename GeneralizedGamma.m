@@ -20,7 +20,7 @@ classdef GeneralizedGamma < handle
           % Estimate the parameters of the distribution using maximum 
           % likelihood estimation.
           start = [3 1 1.5];
-          lb = [-Inf -Inf -Inf];
+          lb = [0 0 0];
           ub = [Inf Inf Inf];
           parmHat = mle(sample, 'pdf', @(x, lambda, c, m) ...
               this.pdf(sample, lambda, c, m), ...
@@ -47,8 +47,10 @@ classdef GeneralizedGamma < handle
           for i = 1:length(x)
               if x(i) > 0
                   F(i) = gammainc((this.Lambda .* x(i)).^this.C, this.M);
-                  % Matlab's gammainc() already divides by the gamam
+                  % Matlab's gammainc() already divides by the gamma
                   % function, see https://de.mathworks.com/help/matlab/ref/gammainc.html
+                  % We could also write 
+                  % F(i) = 1 - igamma(this.M, (this.Lambda .* x(i)).^this.C) / gamma(this.M)
               else
                   F(i) = 0;
               end
