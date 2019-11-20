@@ -1,23 +1,16 @@
+% Test #1: Does the implementation reproduce results from the literature? 
 pdTrue = GeneralizedGamma(1.37, 0.98, 1.60);
 hsPoints =   [0.5  1    1.5   2    4    6    ]; % from Ochi (1992), Fig. 4b
 probPoints = [0.21 0.55 0.70  0.83 0.98 0.995]; % from Ochi (1992), Fig. 4b
-
-% For the distribution shown in Ochi, Fig a, the MLE does not converge.
-% pdTrue = GeneralizedGamma(15.77, 0.612, 8.71);
-% hsPoints =   [1    2    4     6    8     10    ]; % from Ochi (1992), Fig. 4a
-% probPoints = [0.10 0.49 0.90  0.97 0.997 0.9996]; % from Ochi (1992), Fig. 4a
-
 x = [0:0.01:15];
 f = pdTrue.pdf(x);
 F = pdTrue.cdf(x);
-
 fig1 = figure('position', [100 100 900 300]);
 subplot(1, 2, 1);
 plot(x, f);
 ylabel('Density (-)');
 xlabel('Significant wave height (m)');
 box off
-
 subplot(1, 2, 2);
 pstariCdf = icdf('Normal',F,0,1);
 plot(x, pstariCdf, '-k');
@@ -38,12 +31,20 @@ suptitle(['Compare this graph with Ochi (1992), Fig. 4b ' ...
      '(doi: 10.1061/9780872629332.038).']);
 
 
+% Test #2: Does the parameter estimation work correctly?
+% Unfortunately, for the distribution shown in Ochi, Fig a, the MLE does 
+% not converge. To repruce this problem the following three lines of 
+% code can be uncommented:
+% pdTrue = GeneralizedGamma(15.77, 0.612, 8.71);
+% hsPoints =   [1    2    4     6    8     10    ]; % from Ochi (1992), Fig. 4a
+% probPoints = [0.10 0.49 0.90  0.97 0.997 0.9996]; % from Ochi (1992), Fig. 4a
+ 
 n = 5000;
 nOfSamples = 20;
-
 lambdaEstimated = nan(nOfSamples, 1);
 cEstimated = nan(nOfSamples, 1);
 mEstimated = nan(nOfSamples, 1);
+pdEstimated = GeneralizedGamma.empty(nOfSamples, 0);
 for i = 1:nOfSamples
     sample = pdTrue.drawSample(n);
     pdEstimated(i) = GeneralizedGamma();
