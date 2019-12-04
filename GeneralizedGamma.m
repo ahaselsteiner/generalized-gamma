@@ -1,3 +1,8 @@
+% This software was written for the publication
+% "Predicting wave heights for marine design by prioritizing extreme 
+% events in a global model" by A.F. Haselsteiner and K-D. Thoben, see
+% https://arxiv.org/pdf/1911.12835.pdf .
+
 classdef GeneralizedGamma < handle
 % We use the parameterization and variables names that are also used in 
 % doi.org/10.1061/9780872629332.038
